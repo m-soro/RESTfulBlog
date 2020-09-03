@@ -35,8 +35,10 @@
   * Setup the blog app
     - `npm init`
     - `npm install express mongoose body-parser ejs --save`
+
   * Create the Blog model
     - same as other schemas. We can set a default object `created: {type: Date, default: Date.now}`
+
   * Add INDEX route and template
     - Its conventional that the root page redirects to the index page
     ```
@@ -51,8 +53,10 @@
 
 # Basic Layout    
   * Add Header and Footer partials
+
   * Include semantic UI
     - include sematic ui min cdn
+
   * Add a simple Nav Bar with icon
     - use the `public` directory to style the page
     - `<link rel="stylesheet" href="/stylesheets/app.css">` make note of the `/` before the stylesheet
@@ -118,8 +122,9 @@
     ```
 
 # The R in CRUD
-    * Add show route.
-      - To get the unique id from mongo we use `Blog.findByID` which two arguments: `req.params.id` and the callback function.
+  * Add show route.
+    - To get the unique id from mongo we use `Blog.findByID` which two arguments: `req.params.id` and the callback function.
+
       ```
       // SHOW ROUTE
       app.get('/blogs/:id', function(req, res){
@@ -133,9 +138,11 @@
         });
       });
       ```
-    * Add show template
-      - in views/show.ejs
-      - styled using sematic ui, blog is an object that has title, image, body and created as properties.
+
+  * Add show template
+    - in views/show.ejs
+    - styled using sematic ui, blog is an object that has title, image, body and created as properties.
+
       ```
       <%- include ('partials/header') %>
 
@@ -156,8 +163,12 @@
 
       <%- include ('partials/footer') %>
       ```
-      - **changing the equal sign to a dash** `<%= %>` **to** `<%- %>` evaluates the code not just rendering the contents.
-    * Add links to show page
-      - to read more of the blog entry, click read more in index.
-      - `<a href="/blogs/<%= blog._id %>">READ MORE</a>` each entry has a unique id from mongo which we can use as identifier.
-    * Style the show template
+
+    - **changing the equal sign to a dash** `<%= %>` **to** `<%- %>` evaluates the code not just renders the contents.
+    - `<p><%- blog.body.substring(0,100) %> ... </p>` truncate the post so it only shows the first 100 characters.
+
+  * Add links to show page
+    - to read more of the blog entry, click read more in index.
+    - `<a href="/blogs/<%= blog._id %>">READ MORE</a>` each entry has a unique id from mongo which we can use as identifier.
+
+  * Style the show template
