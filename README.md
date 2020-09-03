@@ -125,7 +125,7 @@
   * Add show route.
     - To get the unique id from mongo we use `Blog.findByID` which two arguments: `req.params.id` and the callback function.
 
-  ```
+    ```
       // SHOW ROUTE
       app.get('/blogs/:id', function(req, res){
         // test it with res.send('This is the show page');
@@ -137,13 +137,13 @@
           }
         });
       });
-  ```
+      ```
 
   * Add show template
     - in views/show.ejs
     - styled using sematic ui, blog is an object that has title, image, body and created as properties.
 
-    ```
+      ```
       <%- include ('partials/header') %>
 
       <div class="ui main text container segment">
@@ -162,7 +162,7 @@
       </div>
 
       <%- include ('partials/footer') %>
-    ```
+      ```
 
     - **changing the equal sign to a dash** `<%= %>` **to** `<%- %>` evaluates the code not just renders the contents.
     - `<p><%- blog.body.substring(0,100) %> ... </p>` truncate the post so it only shows the first 100 characters.
