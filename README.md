@@ -172,3 +172,77 @@
     - `<a href="/blogs/<%= blog._id %>">READ MORE</a>` each entry has a unique id from mongo which we can use as identifier.
 
   * Style the show template
+
+# The U in CRUD
+  * Edit and Update
+    - A combination of SHOW and CREATE
+
+  * Add Edit Route
+    - `Blog.findById`, `'/blogs/:id'` to find the blog to be edited.
+    ```
+    app.get('/blogs/:id/edit', function(req, res){
+      // find the blog to be edited by:
+      Blog.findById(req.params.id, function(err, foundBlog){
+        if(err){
+          res.redirect('/blogs');
+        } else {
+          // render the edit form
+          res.render('edit', {blog:foundBlog});
+        }
+      });
+    });
+    ```
+  * Add Edit Form
+    - the `edit.ejs` is almost the same as the `new.ejs` form, except we want the forms to be pre-filled with our blog to be edited.
+    - We'll use `value="<%= blog.title %>"` parameter to fill the form.
+
+    ```
+    <div class="ui main text container segment">
+      <div class="ui huge header">Edit <%= blog.title %> </div>
+      <form class="ui form" action="/blogs/<%= blog._id %>" method="PUT">
+        <div class="field">
+          <label for="Title">Title</label>
+          <input type="text" name="blog[title]" value="<%= blog.title %>">
+        </div>
+        <div class="field">
+          <label for="Image">Image</label>
+          <input type="text" name="blog[image]" value="<%= blog.image %>">
+        </div>
+        <div class="field">
+          <label for="Blog Content">Blog Content</label>
+          <textarea name="blog[body]" rows="8" cols="80" req><%= blog.body %></textarea>
+        </div>
+        <input type="submit" class="ui blue basic button big">
+      </form>
+    </div>
+
+    ```
+    - change the form action to submit `action="/blogs/<%= blog._id %>"` and change method to `PUT`
+    - at this point in edit.ejs if we submit an edit, the edit will only appear as a query string in the address bar, the reason is html forms only supports get and post request, so we will have to use `Method-Override`.
+
+  * Add Update Route
+    - `put` means updating something if following REST convention.
+    - you can accomplish the same with `post`, but its important that we follow the convention.
+    - in app.js `Blog.findByIdAndUpdate(id, data, callback)` asks for three `arguments,req.params.id, req.body.blog, function(req, res)`
+    ```
+    // UPDATE ROUTE
+    app.put('/blogs/:id', function(req, res){
+      // find the post and update with the new data with:
+      Blog.findByIdAndUpdate(req.params.id, req.body.blog, function(err, updatedBlog){
+        if(err){
+          res.redirect('/blogs');
+        } else {
+          res.redirect('/blogs/'+ req.params.id);
+        }
+      });
+      // res.send('update route');
+    });
+    ```
+
+  * Add Update Form
+
+  * Add Method-Override
+    - a package `npm install --save method-override`.
+    - the we change the edit.ejs form a bit `action="/blogs/<%= blog._id %>?_method=PUT" method="POST"`
+    - require it in app.js and tell express to use this.
+    - `app.use(methodOverride('_method'));` the `_method` as an argument tells method override to look for `_method` and treat is as such request for us, it was `PUT` in edit.ejs.
