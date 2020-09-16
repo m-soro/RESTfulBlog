@@ -4,15 +4,15 @@
   <div class="ui huge header">New Blog</div>
   <form class="ui form" action="/blogs" method="POST">
     <div class="field">
-      <label for="Title"></label>
+      <label for="Title">Title</label>
       <input type="text" name="blog[title]" placeholder="title">
     </div>
     <div class="field">
-      <label for="Image"></label>
+      <label for="Image">Image</label>
       <input type="text" name="blog[image]" placeholder="image url">
     </div>
     <div class="field">
-      <label for="Blog Content"></label>
+      <label for="Blog Content">Blog Content</label>
       <textarea name="blog[body]" rows="8" cols="80" placeholder="Blog post goes here" req></textarea>
     </div>
     <input type="submit" class="ui blue basic button big">
@@ -20,4 +20,3 @@
 </div>
 
 <%- include ('partials/footer') %>
- 
