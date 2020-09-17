@@ -277,3 +277,35 @@
   - `Blog.findByIdAndRemove(req.params.id, function(err)`, takes only two arguments, the id and the callback function. no need for data since its delete!
   - the edit link is just a `<a href>` tag since we are not sending a form its just a `GET` request.
   - form tags are not block elements not inline.
+
+## Final Touches
+  * Sanitize Blog Body
+    - To prevent the users to enter any scripts to our form, we'll install sanitizer, `npm install express-sanitizer` then require and use, the only requirement in app.use is that it should come after the body parser in app.js
+    - `CREATE` route and `UPDATE` route are the only routes that needs to be sanitized since this is where the users can submit data, `req.body.blog.body = req.sanitize(req.body.blog.body);`.
+
+    ```
+    // CREATE ROUTE
+    app.post('/blogs', function(req, res){
+      // sanitize the data coming from the form
+      // console.log(req.body);
+
+      req.body.blog.body = req.sanitize(req.body.blog.body);
+
+      //console.log('==============')
+      //console.log(req.body);
+      // to create a blog post, pass in the blog object from the form
+
+      Blog.create(req.body.blog, function(err, newBlog){
+        if(err){
+          res.render('new');
+        } else {
+          // then, redirect
+          res.redirect('/blogs');
+        }
+      });
+    });
+    ```
+    - just copy the sanitizer code to `UPDATE` route
+
+  * Style index
+  * Update REST Table
