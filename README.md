@@ -1,6 +1,6 @@
 # RESTful Blog
 
-# Introduction
+## Introduction
 
 **REST**
   - A mapping between HTTP and CRUD
@@ -14,7 +14,7 @@
 
   - Representational State Transfer
 
-# RESTful Routing
+## RESTful Routing
   - Define REST and explain WHY it matters
   - List all 7 RESTful routes
   - Show example of RESTful routing in practice
@@ -31,7 +31,7 @@
 | DESTROY 	| /dogs/:id      	| DELETE 	| Delete a particular dog then, redirect 	|
 
 
-# Blog Index
+## Blog Index
   * Setup the blog app
     - `npm init`
     - `npm install express mongoose body-parser ejs --save`
@@ -51,7 +51,7 @@
     });
     ```
 
-# Basic Layout    
+## Basic Layout    
   * Add Header and Footer partials
 
   * Include semantic UI
@@ -70,7 +70,7 @@
   </div>
   ```
 
-# Putting C in CRUD
+## Putting C in CRUD
   * Add NEW route
     - `new.ejs` file displays the form that creates a blog post. In `app.js` file below is the **NEW route**.
     ```
@@ -121,7 +121,7 @@
     });
     ```
 
-# The R in CRUD
+## The R in CRUD
   * Add show route.
     - To get the unique id from mongo we use `Blog.findByID` which two arguments: `req.params.id` and the callback function.
 
@@ -173,7 +173,7 @@
 
   * Style the show template
 
-# The U in CRUD
+## The U in CRUD
   * Edit and Update
     - A combination of SHOW and CREATE
 
@@ -246,3 +246,34 @@
     - the we change the edit.ejs form a bit `action="/blogs/<%= blog._id %>?_method=PUT" method="POST"`
     - require it in app.js and tell express to use this.
     - `app.use(methodOverride('_method'));` the `_method` as an argument tells method override to look for `_method` and treat is as such request for us, it was `PUT` in edit.ejs.
+
+## The D in CRUD
+  - uses method override with verb `DELETE` and redirect to index.
+
+  * Add Destroy Route
+    ```
+    // DELETE ROUTE
+    app.delete('/blogs/:id', function(req, res){
+      // destroy blog
+      Blog.findByIdAndRemove(req.params.id, function(err){
+        if(err){
+          res.redirect('/blogs');
+        } else {
+          res.redirect('/blogs');
+        }
+      });
+      // redirect
+      // res.send('This is the Destroy Route');
+    });
+    ```
+  * Add Edit and Destroy Links
+
+  - in show.ejs we needed a form that will send the action to delete route using method-override:
+  ```
+  <form action="/blogs/<%= blog._id %>?_method=DELETE" method="POST">
+    <button class="ui red basic button">DELETE</button>
+  </form>
+  ```
+  - `Blog.findByIdAndRemove(req.params.id, function(err)`, takes only two arguments, the id and the callback function. no need for data since its delete!
+  - the edit link is just a `<a href>` tag since we are not sending a form its just a `GET` request.
+  - form tags are not block elements not inline.
