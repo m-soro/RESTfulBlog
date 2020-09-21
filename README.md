@@ -308,4 +308,21 @@
     - just copy the sanitizer code to `UPDATE` route
 
   * Style index
+  - to give it a centered container:
+    `<div class="ui main text container"></div>`
+  - to give it a separating line in a box:   
+    `<div class="ui top attached segment"></div>`
+  - to constrain the image:
+    `<div class="image"><img src="<%= blog.image %>" alt="blog image"></div>`
+  - in content section make the title an anchor tag so you can click it to go to show page.
+    `<a href="/blogs/<%= blog._id %>"> <%= blog.title %></a>`
+  - to add a little more info about the content:
+    `<div class="meta"><span><%= blog.created.toDateString() %></span></div>`
+  - for the actual body of the blog:
+    `<div class="description"><p><%- blog.body.substring(0,100) %> ... </p></div>`
+  - add an icon the `READ MORE` link
+    ```<a class='ui floated basic blue button' href="/blogs/<%= blog._id %>">
+      READ MORE
+      <i class='right chevron icon'></i>```
+
   * Update REST Table
