@@ -20,15 +20,15 @@
   - Show example of RESTful routing in practice
 
   **RESTFUL ROUTES**
-  | Route Name    	| Path           	| Verb   	| Purpose                                	|
-|---------	|----------------	|--------	|----------------------------------------	|
-| INDEX   	| /dogs          	| GET    	| List all dogs                          	|
-| NEW     	| /dogs/new      	| GET    	| Show new dog form                      	|
-| CREATE  	| /dogs          	| POST   	| Create new dog then, redirect          	|
-| SHOW    	| /dogs/:id      	| GET    	| Show info about one specific dog       	|
-| EDIT    	| /dogs/:id/edit 	| GET    	| Show edit form for one dog             	|
-| UPDATE  	| /dogs/:id      	| PUT    	| Update a particular dog then, redirect 	|
-| DESTROY 	| /dogs/:id      	| DELETE 	| Delete a particular dog then, redirect 	|
+  | Route Name | Path          | Verb   | Purpose                                | Mongoose Method         |
+  |------------|---------------|--------|----------------------------------------|-------------------------|
+  | INDEX      | /dogs         | GET    | List all dogs                          | Dog.find()              |
+  | NEW        | /dogs/new     | GET    | Show new dog                           | N/A                     |
+  | CREATE     | /dogs         | POST   | Create new dog then redirect           | Dog.create()            |
+  | SHOW       | /dogs/:id     | GET    | Show info about one specific dog       | Dog.findById()          |
+  | EDIT       | /dog/:id/edit | GET    | Show edit form for one dog             | Dog.findById()          |
+  | UPDATE     | /dogs/:id     | PUT    | Update particular dog then, redirect   | Dog.findByIdAndUpdate() |
+  | DESTROY    | /dogs:id      | DELETE | Delete a particular dog then, redirect | Dog.findByIdAndRemove() |
 
 
 ## Blog Index
